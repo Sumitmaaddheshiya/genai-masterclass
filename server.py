@@ -11,7 +11,7 @@ import requests
 from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from flask import Flask, request, jsonify, send_file, send_from_directory, render_template_string, redirect
+from flask import Flask, request, jsonify, send_file, send_from_directory, render_template_string, redirect, Response
 from dotenv import load_dotenv
 
 # Ensure UTF-8 output on Windows consoles
@@ -68,6 +68,7 @@ COHOST_NAME             = os.getenv("COHOST_NAME", "Nikhil Mishra")
 SUPPORT_EMAIL           = os.getenv("SUPPORT_EMAIL", "contact@analystworld.in")
 SUPPORT_PHONE           = os.getenv("SUPPORT_PHONE", "+91 98765 43210")
 WHATSAPP_LINK           = os.getenv("WHATSAPP_LINK", "https://chat.whatsapp.com/invite/genai-masterclass")
+ADMIN_PASSWORD          = os.getenv("ADMIN_PASSWORD", "")  # Optional: secure admin portal on deployed URL
 
 
 # ─── Data Storage Helper ───────────────────────────────────────────────────────
@@ -640,10 +641,30 @@ PAYMENT_FAILED_PAGE = f"""
 """
 
 
+def check_admin_access():
+    """Validates admin access via query key (?key=XYZ) or HTTP Basic Auth."""
+    if not ADMIN_PASSWORD:
+        return True
+    token = request.args.get("key") or request.args.get("password")
+    if token and token == ADMIN_PASSWORD:
+        return True
+    auth = request.authorization
+    if auth and (auth.password == ADMIN_PASSWORD or auth.username == ADMIN_PASSWORD):
+        return True
+    return False
+
+
 # ─── Admin Dashboard & Attendee Export ─────────────────────────────────────────
 @app.route("/admin")
 def admin_dashboard():
     """Attendee management dashboard for Akash Mohan & Nikhil Mishra."""
+    if not check_admin_access():
+        return Response(
+            "Access Denied: Please provide the admin password.",
+            401,
+            {"WWW-Authenticate": 'Basic realm="Admin Portal Login"'}
+        )
+
     attendees = []
     if os.path.exists(REGISTRATIONS_JSONL):
         with open(REGISTRATIONS_JSONL, "r", encoding="utf-8") as f:
@@ -655,25 +676,33 @@ def admin_dashboard():
                         pass
     attendees.reverse()
 
+    admin_key = request.args.get("key", "")
+    export_url = f"/admin/export-csv?key={admin_key}" if admin_key else "/admin/export-csv"
+
     html = f"""
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
       <title>Admin Dashboard &bull; {WEBINAR_NAME}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
       <style>
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
         body {{ font-family: 'DM Sans', sans-serif; background: #ffffff; color: #0f172a; padding: 40px 20px; }}
         .container {{ max-width: 1000px; margin: 0 auto; }}
-        .header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; }}
+        .header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; flex-wrap: wrap; gap: 16px; }}
         .title h1 {{ font-size: 22px; color: #1d4ed8; letter-spacing: -0.02em; font-weight: 800; }}
         .title p {{ font-size: 13.5px; color: #64748b; margin-top: 4px; }}
-        .stats-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }}
+        .stats-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }}
         .stat-card {{ background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; }}
         .stat-label {{ font-size: 11.5px; color: #64748b; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; }}
         .stat-val {{ font-size: 28px; font-weight: 800; color: #0f172a; margin-top: 8px; font-family: 'JetBrains Mono', monospace; }}
-        .btn {{ display: inline-block; background: #1d4ed8; color: #ffffff; font-weight: 700; text-decoration: none; padding: 10px 22px; border-radius: 8px; font-size: 13.5px; }}
+        .controls {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }}
+        .search-box {{ flex: 1; min-width: 260px; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; font-family: inherit; }}
+        .search-box:focus {{ outline: none; border-color: #1d4ed8; }}
+        .btn {{ display: inline-block; background: #1d4ed8; color: #ffffff; font-weight: 700; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-size: 13.5px; border: none; cursor: pointer; }}
+        .btn-outline {{ background: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; }}
         table {{ width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; }}
         th, td {{ padding: 14px 18px; text-align: left; font-size: 13.5px; border-bottom: 1px solid #e2e8f0; }}
         th {{ background: #f1f5f9; color: #1e293b; font-weight: 700; font-size: 11.5px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; }}
@@ -689,8 +718,9 @@ def admin_dashboard():
             <h1>{WEBINAR_NAME} &bull; Attendee Portal</h1>
             <p>Hosts: Akash Mohan (Pace Stock Broking) &amp; Nikhil Mishra (Ex-InfoEdge) &bull; Schedule: {WEBINAR_DATE}</p>
           </div>
-          <div>
-            <a href="/admin/export-csv" class="btn">Export CSV &rarr;</a>
+          <div style="display:flex; gap:10px;">
+            <a href="{export_url}" class="btn">Export CSV &rarr;</a>
+            <button onclick="window.location.reload()" class="btn btn-outline">Refresh</button>
           </div>
         </div>
 
@@ -709,7 +739,11 @@ def admin_dashboard():
           </div>
         </div>
 
-        <table>
+        <div class="controls">
+          <input type="text" id="searchInput" class="search-box" placeholder="Search attendees by name, email, or phone..." onkeyup="filterAttendees()">
+        </div>
+
+        <table id="attendeesTable">
           <thead>
             <tr>
               <th>#</th>
@@ -721,17 +755,28 @@ def admin_dashboard():
             </tr>
           </thead>
           <tbody>
-            {''.join(f'''<tr>
+            {''.join(f'''<tr class="attendee-row">
               <td>{i+1}</td>
               <td style="color:#64748b;">{a.get("timestamp", "-")}</td>
-              <td><strong>{a.get("name", "-")}</strong></td>
-              <td><a href="mailto:{a.get("email")}" style="color:#1d4ed8; text-decoration:none;">{a.get("email", "-")}</a></td>
-              <td>{a.get("phone", "-")}</td>
+              <td class="col-name"><strong>{a.get("name", "-")}</strong></td>
+              <td class="col-email"><a href="mailto:{a.get("email")}" style="color:#1d4ed8; text-decoration:none;">{a.get("email", "-")}</a></td>
+              <td class="col-phone">{a.get("phone", "-")}</td>
               <td><span class="badge">{a.get("payment_id", "CONFIRMED")[:18]}</span></td>
             </tr>''' for i, a in enumerate(attendees)) if attendees else '<tr><td colspan="6" class="empty">No registrations yet.</td></tr>'}
           </tbody>
         </table>
       </div>
+
+      <script>
+        function filterAttendees() {{
+          const input = document.getElementById('searchInput').value.toLowerCase();
+          const rows = document.querySelectorAll('.attendee-row');
+          rows.forEach(row => {{
+            const text = row.innerText.toLowerCase();
+            row.style.display = text.includes(input) ? '' : 'none';
+          }});
+        }}
+      </script>
     </body>
     </html>
     """
@@ -741,6 +786,13 @@ def admin_dashboard():
 @app.route("/admin/export-csv")
 def export_csv():
     """Direct CSV download of all attendees."""
+    if not check_admin_access():
+        return Response(
+            "Access Denied: Please provide the admin password.",
+            401,
+            {"WWW-Authenticate": 'Basic realm="Admin Portal Login"'}
+        )
+
     if not os.path.exists(REGISTRATIONS_CSV):
         with open(REGISTRATIONS_CSV, "w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=["timestamp", "name", "email", "phone", "payment_id", "webinar", "date"])
