@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GenAI Master Class | Live Implementation with Akash Mohan & Nikhil Mishra</title>
-  <meta name="description" content="Join Akash Mohan (Data Analyst at Pace Stock Broking) and Nikhil Mishra (Ex-InfoEdge) live TODAY, Saturday September 19 from 7:00 PM to 9:00 PM IST on Google Meet. Build an end-to-end GenAI project from scratch." />
+  <title>Live RAG & Implementation Masterclass | Akash Mohan & Nikhil Mishra</title>
+  <meta name="description" content="Build an end-to-end GenAI application from line zero. Live on Sunday, 27 September 2026 from 7:00 PM to 9:00 PM IST with Akash Mohan (Data Analyst, Pace Stock Broking) and Nikhil Mishra (Ex-InfoEdge)." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +16,7 @@
       --bg-alt: #f8fafc;
       --surface: #ffffff;
       --border: #e2e8f0;
-      --border-dark: #cbd5e1;
+      --border-focus: #cbd5e1;
       
       --text-main: #0f172a;
       --text-body: #334155;
@@ -1043,12 +1043,12 @@
 </head>
 <body>
 
-  <!-- TOP BANNER: TODAY LIVE EVENT -->
+  <!-- TOP BANNER -->
   <div class="top-banner">
     <div class="container top-banner-inner">
       <div class="banner-badge">
         <span class="live-dot"></span>
-        <span>TODAY &bull; SATURDAY, SEPTEMBER 19 &bull; 7:00 PM &ndash; 9:00 PM IST</span>
+        <span>LIVE WORKSHOP &bull; SUNDAY, 27 SEPTEMBER 2026 &bull; 7:00 PM &ndash; 9:00 PM IST</span>
       </div>
       <a href="#register" class="banner-link">Confirm Your Spot &rarr;</a>
     </div>
@@ -1059,7 +1059,7 @@
     <div class="container nav-inner">
       <a href="/" class="nav-logo">GenAI<span>Masterclass</span></a>
       <div class="nav-date-meta">
-        TODAY &bull; Saturday, September 19 &bull; <strong>7:00 PM &ndash; 9:00 PM IST</strong>
+        Sunday, 27 September &bull; <strong>7:00 PM &ndash; 9:00 PM IST</strong>
       </div>
       <a href="#register" class="btn btn-outline" style="padding: 8px 18px; font-size: 13px;">Join Live</a>
     </div>
@@ -1072,7 +1072,7 @@
       <!-- Left Column -->
       <div class="hero-left">
         <div class="hero-tag">
-          <span>&bull;</span> Live Build Workshop &bull; Starting Today at 7:00 PM
+          <span>&bull;</span> Live Build Workshop &bull; Sunday, 27 September &bull; 7:00 PM IST
         </div>
 
         <h1 class="hero-title">
@@ -1082,16 +1082,17 @@
 
         <p class="hero-subtitle">
           Join <strong>Akash Mohan</strong> (Data Analyst at Pace Stock Broking) and <strong>Nikhil Mishra</strong> (Ex-InfoEdge) 
-          TODAY from 7:00 PM to 9:00 PM IST on Google Meet. Connect Python, embeddings, RAG, and modern LLMs into a practical, working application.
+          on Sunday, 27 September from 7:00 PM to 9:00 PM IST on Google Meet. Connect Python, embeddings, RAG, and modern LLMs into a practical, working application.
         </p>
 
         <div class="schedule-bar">
           <span class="bullet">&bull;</span>
-          <span>Saturday, September 19 &bull; 7:00 PM &ndash; 9:00 PM IST &bull; Live on Google Meet</span>
+          <span>Sunday, 27 September 2026 &bull; 7:00 PM &ndash; 9:00 PM IST &bull; Live on Google Meet</span>
         </div>
 
-        <!-- Live Countdown to Today 7:00 PM -->
+        <!-- Live Countdown to Sunday 27 September 7:00 PM IST -->
         <div class="countdown-wrap" id="countdown">
+          <div class="cd-box"><div class="cd-val" id="cd-days">--</div><div class="cd-label">Days</div></div>
           <div class="cd-box"><div class="cd-val" id="cd-hours">--</div><div class="cd-label">Hours</div></div>
           <div class="cd-box"><div class="cd-val" id="cd-mins">--</div><div class="cd-label">Mins</div></div>
           <div class="cd-box"><div class="cd-val" id="cd-secs">--</div><div class="cd-label">Secs</div></div>
@@ -1161,7 +1162,7 @@
           </form>
 
           <div class="urgency-counter">
-            Seats remaining for 7:00 PM session: <strong id="live-seats">184</strong> / 250
+            Seats remaining: <strong id="live-seats">184</strong> / 250
           </div>
 
           <div class="reg-guarantee">
@@ -1194,7 +1195,7 @@
   <section class="section">
     <div class="container">
       <span class="eyebrow">&bull; The Reality Gap</span>
-      <h2 class="sec-title">Most AI tutorials are API wrappers.<br />Tonight, we kill the slides.</h2>
+      <h2 class="sec-title">Most AI tutorials are API wrappers.<br />We kill the slides.</h2>
       <p class="sec-sub">
         Someone reads thirty slides on transformers, copies an OpenAI snippet from an outdated notebook, and calls it a class. 
         You walk away with zero intuition for what actually happens under the hood when data moves from a raw PDF into an LLM context window.
@@ -1213,7 +1214,7 @@
         </div>
 
         <div class="contrast-col good">
-          <div class="col-header">&check; What We Do Live Today</div>
+          <div class="col-header">&check; What We Do Live</div>
           <ul class="contrast-list">
             <li><span class="mark">&check;</span> Build a real application live from raw input to working output</li>
             <li><span class="mark">&check;</span> Understand why RAG matters and how documents become semantic vectors</li>
@@ -1231,7 +1232,7 @@
     <div class="container">
       <span class="eyebrow">&bull; The Standard</span>
       <h2 class="sec-title">Three rules of this masterclass</h2>
-      <p class="sec-sub">Why this session is completely different from passive web seminars:</p>
+      <p class="sec-sub">Why this session is completely different from passive webinars:</p>
 
       <div class="rules-grid">
         <div class="rule-card">
@@ -1559,7 +1560,7 @@
             <span class="faq-icon">+</span>
           </div>
           <div class="faq-a">
-            The session takes place TODAY, Saturday September 19 from 7:00 PM to 9:00 PM IST on Google Meet. Please join 5 minutes early.
+            The session takes place on Sunday, 27 September 2026 from 7:00 PM to 9:00 PM IST on Google Meet. Please join 5 minutes early.
           </div>
         </div>
 
@@ -1599,6 +1600,15 @@
   <!-- FOOTER -->
   <footer>
     <div class="container">
+      <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13px;">
+        <a href="/terms" style="color: #64748b; text-decoration: none; font-weight: 500;">Terms &amp; Conditions</a>
+        <span style="color: #cbd5e1;">&bull;</span>
+        <a href="/privacy" style="color: #64748b; text-decoration: none; font-weight: 500;">Privacy Policy</a>
+        <span style="color: #cbd5e1;">&bull;</span>
+        <a href="/refund" style="color: #64748b; text-decoration: none; font-weight: 500;">Cancellation &amp; Refund</a>
+        <span style="color: #cbd5e1;">&bull;</span>
+        <a href="/contact" style="color: #64748b; text-decoration: none; font-weight: 500;">Contact Us</a>
+      </div>
       <p>&copy; 2026 GenAI Master Class &bull; Hosted by Akash Mohan (Pace Stock Broking) &amp; Nikhil Mishra (Ex-InfoEdge) &bull; All rights reserved.</p>
     </div>
   </footer>
@@ -1609,11 +1619,11 @@
       <div class="modal-kicker">Reservation Confirmed</div>
       <h3 class="modal-title">You are in!</h3>
       <p class="modal-desc" id="modalAttendeeText">
-        Your seat for today's live GenAI Master Class has been confirmed.
+        Your seat for the live GenAI Master Class has been confirmed.
       </p>
 
       <div class="modal-meta-box">
-        <div class="modal-meta-row"><span>Date</span><strong>TODAY &bull; Saturday, Sep 19</strong></div>
+        <div class="modal-meta-row"><span>Date</span><strong>Sunday, 27 September 2026</strong></div>
         <div class="modal-meta-row"><span>Time</span><strong>7:00 PM &ndash; 9:00 PM IST</strong></div>
         <div class="modal-meta-row"><span>Platform</span><strong>Google Meet</strong></div>
         <div class="modal-meta-row"><span>Instructors</span><strong>Akash Mohan &amp; Nikhil Mishra</strong></div>
@@ -1638,24 +1648,25 @@
 
   <!-- SCRIPT -->
   <script>
-    // --- LIVE COUNTDOWN TIMER TO TODAY 7:00 PM IST ---
-    // Target: 19 September 2026 at 19:00:00 IST
-    const targetDate = new Date();
-    targetDate.setHours(19, 0, 0, 0);
+    // --- LIVE COUNTDOWN TIMER TO SUNDAY, 27 SEPTEMBER 2026 AT 7:00 PM IST ---
+    const targetDate = new Date('2026-09-27T19:00:00+05:30').getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const diff = targetDate.getTime() - now;
+      const diff = targetDate - now;
 
       if (diff > 0) {
-        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
+        document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
         document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
         document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
         document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
       } else {
+        document.getElementById('cd-days').textContent = '00';
         document.getElementById('cd-hours').textContent = '00';
         document.getElementById('cd-mins').textContent = '00';
         document.getElementById('cd-secs').textContent = '00';
@@ -1712,8 +1723,15 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Registration failed');
 
+        // If payment gateway redirect is requested (PhonePe)
+        if (!data.direct && data.redirect_url) {
+          btn.textContent = 'Redirecting to PhonePe...';
+          window.location.href = data.redirect_url;
+          return;
+        }
+
         document.getElementById('modalAttendeeText').innerHTML = 
-          `Welcome aboard, <strong>${name}</strong>. Your seat is confirmed for today at 7:00 PM IST on Google Meet.`;
+          `Welcome aboard, <strong>${name}</strong>. Your seat is confirmed for Sunday, 27 September at 7:00 PM IST on Google Meet.`;
 
         document.getElementById('successModal').classList.add('active');
         document.getElementById('rsvp-form').reset();

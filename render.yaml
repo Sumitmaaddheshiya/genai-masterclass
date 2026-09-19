@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: genai-masterclass
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn server:app
+    plan: free
+    envVars:
+      - key: WEBINAR_NAME
+        value: GenAI Master Class
+      - key: WEBINAR_DATE
+        value: Sunday, 27 September 2026 · 7:00-9:00 pm IST
+      - key: MEETING_LINK
+        value: https://meet.google.com/xae-ejfw-ybm
+      - key: HOST_NAME
+        value: Akash Mohan
+      - key: COHOST_NAME
+        value: Nikhil Mishra
+      - key: ENABLE_PAYMENTS
+        value: "false"
+      - key: PAYMENT_GATEWAY
+        value: PHONEPE
+      - key: PHONEPE_ENV
+        value: UAT
+      - key: PYTHON_VERSION
+        value: 3.11.8
