@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenAI Master Class | Live Implementation with Akash Mohan & Nikhil Mishra</title>
+  <meta name="description" content="Join Akash Mohan (Data Analyst at Pace Stock Broking) and Nikhil Mishra (Ex-InfoEdge) live TODAY, Saturday September 19 from 7:00 PM to 9:00 PM IST on Google Meet. Build an end-to-end GenAI project from scratch." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      
+      --text-main: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+
+      --blue-primary: #1d4ed8;
+      --blue-hover: #1e40af;
+      --blue-light: #eff6ff;
+      --blue-border: #bfdbfe;
+      
+      --amber: #b45309;
+      --amber-light: #fef3c7;
+
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --max-w: 1140px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      font-size: 15px;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-primary);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sec-title {
+      font-size: clamp(26px, 3.6vw, 38px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.18;
+      color: var(--text-main);
+      margin: 12px 0 14px;
+    }
+
+    .sec-sub {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 640px;
+      line-height: 1.65;
+    }
+
+    .gradient-text {
+      color: var(--blue-primary);
+    }
+
+    /* --- BUTTONS --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 14.5px;
+      border-radius: 999px;
+      padding: 13px 26px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--blue-primary);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(29, 78, 216, 0.35);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--blue-primary);
+      color: var(--blue-primary);
+    }
+
+    /* --- TOP BANNER --- */
+    .top-banner {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 10px 0;
+      font-size: 13px;
+    }
+    .top-banner-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .banner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ef4444;
+      animation: pulse-dot 1.8s infinite;
+    }
+    @keyframes pulse-dot {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    .banner-link {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    /* --- NAVIGATION --- */
+    .nav {
+      padding: 16px 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+    .nav-logo span { color: var(--blue-primary); }
+    .nav-date-meta {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .nav-date-meta strong { color: var(--text-main); }
+
+    /* --- HERO --- */
+    .hero-section {
+      padding: 56px 0 70px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue-primary);
+      background: var(--blue-light);
+      border: 1px solid var(--blue-border);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .hero-title {
+      font-size: clamp(34px, 5vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      color: var(--text-main);
+      margin-bottom: 20px;
+    }
+    .hero-subtitle {
+      font-size: 16.5px;
+      color: var(--text-body);
+      max-width: 530px;
+      margin-bottom: 24px;
+      line-height: 1.65;
+    }
+    .hero-subtitle strong { color: var(--text-main); }
+
+    .schedule-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 18px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-main);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      margin-bottom: 26px;
+    }
+    .schedule-bar .bullet { color: var(--blue-primary); font-weight: 700; }
+
+    /* Countdown */
+    .countdown-wrap {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .cd-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      min-width: 64px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+    .cd-val {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--blue-primary);
+      line-height: 1;
+    }
+    .cd-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .hero-footnote {
+      margin-top: 18px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* --- REGISTRATION CARD --- */
+    .reg-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      position: sticky;
+      top: 70px;
+    }
+    .reg-card-head {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+    .reg-card-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+    .reg-card-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .reg-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 10px;
+      margin: 12px 0 6px;
+    }
+    .reg-price-current {
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--blue-primary);
+      font-family: var(--font-mono);
+    }
+    .reg-price-original {
+      font-size: 15px;
+      color: var(--text-dim);
+      text-decoration: line-through;
+    }
+
+    .reg-features {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 22px;
+    }
+    .reg-feat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 13px;
+      padding: 5px 0;
+      color: var(--text-body);
+    }
+    .reg-feat-item .check {
+      color: var(--blue-primary);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-main);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus {
+      border-color: var(--blue-primary);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+    }
+    .form-group input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .reg-btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+    .reg-guarantee {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 14px;
+      font-family: var(--font-mono);
+    }
+
+    .urgency-counter {
+      background: var(--amber-light);
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 9px 12px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--amber);
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    /* --- SECTION SYSTEM --- */
+    .section {
+      padding: 72px 0;
+      position: relative;
+    }
+    .section-alt {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* --- SOCIAL PROOF STRIP --- */
+    .proof-strip {
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+      background: #ffffff;
+    }
+    .proof-label {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .proof-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+    }
+    .proof-tag {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-body);
+    }
+
+    /* --- CONTRAST / REALITY GAP --- */
+    .contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .contrast-col {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    .contrast-col.bad {
+      border-top: 4px solid #ef4444;
+    }
+    .contrast-col.good {
+      border-top: 4px solid var(--blue-primary);
+    }
+    .col-header {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+    .contrast-col.bad .col-header { color: #dc2626; }
+    .contrast-col.good .col-header { color: var(--blue-primary); }
+    .contrast-list {
+      list-style: none;
+    }
+    .contrast-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 14.5px;
+      color: var(--text-body);
+      border-bottom: 1px solid var(--border);
+    }
+    .contrast-list li:last-child { border-bottom: none; }
+    .contrast-col.good .contrast-list li { color: var(--text-main); font-weight: 500; }
+    .mark {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .contrast-col.bad .mark { color: #dc2626; }
+    .contrast-col.good .mark { color: var(--blue-primary); }
+
+    /* --- THREE RULES --- */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .rule-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    .rule-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue-primary);
+      margin-bottom: 10px;
+    }
+    .rule-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .rule-desc {
+      font-size: 14px;
+      color: var(--text-body);
+      line-height: 1.55;
+    }
+
+    /* --- PIPELINE VISUAL --- */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 32px;
+    }
+    .pipe-node {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+    }
+    .pipe-node:hover {
+      border-color: var(--blue-primary);
+      transform: translateY(-2px);
+    }
+    .pipe-step-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--blue-primary);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .pipe-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .pipe-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* --- CURRICULUM CARDS --- */
+    .curriculum-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 36px;
+    }
+    .curr-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+    }
+    .curr-card:hover {
+      border-color: var(--blue-primary);
+      transform: translateY(-2px);
+    }
+    .curr-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--blue-primary);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .curr-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .curr-body {
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.55;
+    }
+
+    /* --- TECH STACK GRID --- */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 32px;
+    }
+    .stack-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+    }
+    .stack-category {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .stack-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+    }
+    .stack-badge {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      background: var(--blue-light);
+      border: 1px solid var(--blue-border);
+      color: var(--blue-primary);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .stack-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .stack-role {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* --- TIMELINE AGENDA --- */
+    .agenda-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      align-items: start;
+      margin-top: 36px;
+    }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 54px 20px 1fr;
+      gap: 0 16px;
+    }
+    .tl-time {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--blue-primary);
+      font-weight: 700;
+      padding-top: 2px;
+    }
+    .tl-rail {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tl-point {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid var(--blue-primary);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .tl-track {
+      width: 2px;
+      flex: 1;
+      min-height: 28px;
+      background: #cbd5e1;
+      margin-top: 4px;
+    }
+    .timeline-item:last-child .tl-track { display: none; }
+    .tl-info {
+      padding-bottom: 28px;
+    }
+    .tl-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+    .tl-desc {
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    .aside-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+    }
+    .aside-box h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    .aside-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 7px 0;
+      font-size: 13.5px;
+      color: var(--text-body);
+      border-bottom: 1px solid var(--border);
+    }
+    .aside-row:last-child { border-bottom: none; }
+    .aside-bullet { color: var(--blue-primary); font-weight: 700; }
+
+    /* --- INSTRUCTOR CARDS --- */
+    .instructors-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .inst-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    .inst-avatar-box {
+      width: 70px;
+      height: 70px;
+      border-radius: 14px;
+      background: var(--blue-light);
+      border: 1px solid var(--blue-border);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--blue-primary);
+    }
+    .inst-name {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+    }
+    .inst-title {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--blue-primary);
+      font-weight: 600;
+      margin: 3px 0 10px;
+    }
+    .inst-bio {
+      font-size: 13.5px;
+      color: var(--text-body);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .inst-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .inst-tag {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    /* --- FAQ ACCORDION --- */
+    .faq-list {
+      max-width: 800px;
+      margin-top: 32px;
+    }
+    .faq-item {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(15, 23, 42, 0.02);
+    }
+    .faq-item.open {
+      border-color: var(--blue-primary);
+    }
+    .faq-q {
+      padding: 16px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      user-select: none;
+    }
+    .faq-icon {
+      color: var(--blue-primary);
+      font-family: var(--font-mono);
+      font-size: 16px;
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease, padding 0.2s ease;
+      font-size: 14px;
+      color: var(--text-body);
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+    .faq-item.open .faq-a {
+      max-height: 220px;
+      padding: 0 20px 18px;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      background: #ffffff;
+    }
+
+    /* --- CONFIRMATION MODAL --- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-content {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
+    }
+    .modal-kicker {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--blue-primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .modal-title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+    .modal-desc {
+      font-size: 14.5px;
+      color: var(--text-body);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+    .modal-meta-box {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      margin-bottom: 22px;
+    }
+    .modal-meta-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      color: var(--text-muted);
+    }
+    .modal-meta-row strong {
+      color: var(--text-main);
+    }
+
+    .meet-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: #0284c7;
+      color: #ffffff;
+      font-weight: 700;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 14.5px;
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: filter 0.2s;
+    }
+    .meet-btn:hover {
+      filter: brightness(1.08);
+    }
+
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: #16a34a;
+      color: #ffffff;
+      font-weight: 700;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 14px;
+      text-decoration: none;
+      transition: filter 0.2s;
+    }
+    .whatsapp-btn:hover {
+      filter: brightness(1.08);
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      margin-top: 16px;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .contrast-grid, .instructors-grid, .agenda-layout, .rules-grid {
+        grid-template-columns: 1fr;
+      }
+      .reg-card {
+        position: static;
+      }
+    }
+    @media (max-width: 580px) {
+      .hero-title { font-size: 32px; }
+      .nav-date-meta { display: none; }
+      .cd-box { min-width: 52px; padding: 8px 10px; }
+      .cd-val { font-size: 18px; }
+      .reg-card { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BANNER: TODAY LIVE EVENT -->
+  <div class="top-banner">
+    <div class="container top-banner-inner">
+      <div class="banner-badge">
+        <span class="live-dot"></span>
+        <span>TODAY &bull; SATURDAY, SEPTEMBER 19 &bull; 7:00 PM &ndash; 9:00 PM IST</span>
+      </div>
+      <a href="#register" class="banner-link">Confirm Your Spot &rarr;</a>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="nav-logo">GenAI<span>Masterclass</span></a>
+      <div class="nav-date-meta">
+        TODAY &bull; Saturday, September 19 &bull; <strong>7:00 PM &ndash; 9:00 PM IST</strong>
+      </div>
+      <a href="#register" class="btn btn-outline" style="padding: 8px 18px; font-size: 13px;">Join Live</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      
+      <!-- Left Column -->
+      <div class="hero-left">
+        <div class="hero-tag">
+          <span>&bull;</span> Live Build Workshop &bull; Starting Today at 7:00 PM
+        </div>
+
+        <h1 class="hero-title">
+          Stop watching tutorials.<br />
+          <span class="gradient-text">Build your first GenAI project live.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Join <strong>Akash Mohan</strong> (Data Analyst at Pace Stock Broking) and <strong>Nikhil Mishra</strong> (Ex-InfoEdge) 
+          TODAY from 7:00 PM to 9:00 PM IST on Google Meet. Connect Python, embeddings, RAG, and modern LLMs into a practical, working application.
+        </p>
+
+        <div class="schedule-bar">
+          <span class="bullet">&bull;</span>
+          <span>Saturday, September 19 &bull; 7:00 PM &ndash; 9:00 PM IST &bull; Live on Google Meet</span>
+        </div>
+
+        <!-- Live Countdown to Today 7:00 PM -->
+        <div class="countdown-wrap" id="countdown">
+          <div class="cd-box"><div class="cd-val" id="cd-hours">--</div><div class="cd-label">Hours</div></div>
+          <div class="cd-box"><div class="cd-val" id="cd-mins">--</div><div class="cd-label">Mins</div></div>
+          <div class="cd-box"><div class="cd-val" id="cd-secs">--</div><div class="cd-label">Secs</div></div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#register" class="btn btn-primary">Confirm My Seat &rarr;</a>
+          <a href="#architecture" class="btn btn-outline">See What We Build</a>
+        </div>
+
+        <div class="hero-footnote">
+          Beginner-friendly &bull; Hands-on live build &bull; Direct Google Meet link provided
+        </div>
+      </div>
+
+      <!-- Right Column: Registration Card -->
+      <div class="hero-right" id="register">
+        <div class="reg-card">
+          <div class="reg-card-head">
+            <h3 class="reg-card-title">Reserve Your Seat</h3>
+            <p class="reg-card-sub">Live 2-Hour Intensive Session</p>
+            <div class="reg-price-row">
+              <span class="reg-price-current">&#8377;49</span>
+              <span class="reg-price-original">&#8377;999</span>
+            </div>
+            <p style="font-size: 11.5px; color: var(--text-muted); font-family: var(--font-mono);">
+              Instant reservation &bull; Access link on screen
+            </p>
+          </div>
+
+          <div class="reg-features">
+            <div class="reg-feat-item">
+              <span class="check">&check;</span>
+              <span>2-hour hands-on live build with Akash &amp; Nikhil</span>
+            </div>
+            <div class="reg-feat-item">
+              <span class="check">&check;</span>
+              <span>Direct Google Meet joining link delivered instantly</span>
+            </div>
+            <div class="reg-feat-item">
+              <span class="check">&check;</span>
+              <span>Complete Python project code &amp; prompt templates</span>
+            </div>
+            <div class="reg-feat-item">
+              <span class="check">&check;</span>
+              <span>Live Q&amp;A for analytics and software workflows</span>
+            </div>
+          </div>
+
+          <form id="rsvp-form">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" placeholder="e.g. Rahul Sharma" required />
+            </div>
+            <div class="form-group">
+              <label for="emailAddr">Email Address</label>
+              <input type="email" id="emailAddr" placeholder="e.g. rahul@company.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phoneNum">WhatsApp Number (For reminders &amp; links)</label>
+              <input type="tel" id="phoneNum" placeholder="+91 98765 43210" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary reg-btn" id="submit-btn">
+              Get Google Meet Link &rarr;
+            </button>
+          </form>
+
+          <div class="urgency-counter">
+            Seats remaining for 7:00 PM session: <strong id="live-seats">184</strong> / 250
+          </div>
+
+          <div class="reg-guarantee">
+            Direct instant RSVP &bull; Live Google Meet link on next screen
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF STRIP -->
+  <div class="proof-strip">
+    <div class="container">
+      <div class="proof-label">Designed for professionals and learners across leading organizations</div>
+      <div class="proof-logos">
+        <span class="proof-tag">Pace Stock Broking</span>
+        <span class="proof-tag">InfoEdge</span>
+        <span class="proof-tag">TCS</span>
+        <span class="proof-tag">Infosys</span>
+        <span class="proof-tag">Wipro</span>
+        <span class="proof-tag">Razorpay</span>
+        <span class="proof-tag">Flipkart</span>
+        <span class="proof-tag">Zoho</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE REALITY GAP -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">&bull; The Reality Gap</span>
+      <h2 class="sec-title">Most AI tutorials are API wrappers.<br />Tonight, we kill the slides.</h2>
+      <p class="sec-sub">
+        Someone reads thirty slides on transformers, copies an OpenAI snippet from an outdated notebook, and calls it a class. 
+        You walk away with zero intuition for what actually happens under the hood when data moves from a raw PDF into an LLM context window.
+      </p>
+
+      <div class="contrast-grid">
+        <div class="contrast-col bad">
+          <div class="col-header">&times; How It Usually Goes</div>
+          <ul class="contrast-list">
+            <li><span class="mark">&times;</span> Watching endless theory slides with zero practical retention</li>
+            <li><span class="mark">&times;</span> Treating prompts as guesswork instead of structured engineering</li>
+            <li><span class="mark">&times;</span> Inability to connect private documents or data to an LLM</li>
+            <li><span class="mark">&times;</span> Confusion about where embeddings, tokenization, and vector search fit</li>
+            <li><span class="mark">&times;</span> Ending up with fragmented code that cannot be deployed</li>
+          </ul>
+        </div>
+
+        <div class="contrast-col good">
+          <div class="col-header">&check; What We Do Live Today</div>
+          <ul class="contrast-list">
+            <li><span class="mark">&check;</span> Build a real application live from raw input to working output</li>
+            <li><span class="mark">&check;</span> Understand why RAG matters and how documents become semantic vectors</li>
+            <li><span class="mark">&check;</span> Ingest real financial &amp; business PDFs and query them in plain English</li>
+            <li><span class="mark">&check;</span> Connect Python logic to modern LLM APIs (Gemini &amp; Groq)</li>
+            <li><span class="mark">&check;</span> Package the entire pipeline into a clean Streamlit user interface</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE THREE RULES OF THIS ROOM -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="eyebrow">&bull; The Standard</span>
+      <h2 class="sec-title">Three rules of this masterclass</h2>
+      <p class="sec-sub">Why this session is completely different from passive web seminars:</p>
+
+      <div class="rules-grid">
+        <div class="rule-card">
+          <div class="rule-num">RULE 01</div>
+          <div class="rule-title">No Slides</div>
+          <div class="rule-desc">If it cannot be shown in a terminal, an editor, or a running UI, it does not belong in this room.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">RULE 02</div>
+          <div class="rule-title">Every Bug Debugged Live</div>
+          <div class="rule-desc">We do not hide stack traces. When an index mismatch or token overflow occurs, you watch us diagnose and fix it in real-time.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">RULE 03</div>
+          <div class="rule-title">You Leave With The Code</div>
+          <div class="rule-desc">You do not walk away with notes. You leave with a working repository you can clone, modify, and push to your portfolio.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE PIPELINE -->
+  <section class="section" id="architecture">
+    <div class="container">
+      <span class="eyebrow">&bull; The Architecture Pipeline</span>
+      <h2 class="sec-title">What you will build live with us</h2>
+      <p class="sec-sub">
+        A complete document intelligence application: feed in any enterprise document, 
+        and extract verified, sourced insights in seconds.
+      </p>
+
+      <div class="pipeline-grid">
+        <div class="pipe-node">
+          <div class="pipe-step-num">STEP 01</div>
+          <div class="pipe-name">Data Ingestion</div>
+          <div class="pipe-desc">Extract raw text and tables from multi-page PDFs using PyPDF.</div>
+        </div>
+        <div class="pipe-node">
+          <div class="pipe-step-num">STEP 02</div>
+          <div class="pipe-name">Chunking &amp; Tokens</div>
+          <div class="pipe-desc">Break content into semantically coherent token windows.</div>
+        </div>
+        <div class="pipe-node">
+          <div class="pipe-step-num">STEP 03</div>
+          <div class="pipe-name">Local Embeddings</div>
+          <div class="pipe-desc">Run Sentence Transformers locally. Fast, free, and zero API cost.</div>
+        </div>
+        <div class="pipe-node">
+          <div class="pipe-step-num">STEP 04</div>
+          <div class="pipe-name">Vector Search</div>
+          <div class="pipe-desc">Retrieve top-K matching passages via cosine similarity ranking.</div>
+        </div>
+        <div class="pipe-node">
+          <div class="pipe-step-num">STEP 05</div>
+          <div class="pipe-name">LLM Synthesis</div>
+          <div class="pipe-desc">Pass context into Groq / Gemini for instantaneous, sourced answers.</div>
+        </div>
+        <div class="pipe-node">
+          <div class="pipe-step-num">STEP 06</div>
+          <div class="pipe-name">Streamlit UI</div>
+          <div class="pipe-desc">Package into a clean interactive web app in under 40 lines of Python.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 MODULES -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="eyebrow">&bull; What You Will Master</span>
+      <h2 class="sec-title">Eight core components. One coherent system.</h2>
+      <p class="sec-sub">
+        Practical, industry-ready skills that directly map to production GenAI workflows.
+      </p>
+
+      <div class="curriculum-grid">
+        <div class="curr-card">
+          <div class="curr-num">MODULE 01</div>
+          <div class="curr-title">RAG (Retrieval Augmented Generation)</div>
+          <div class="curr-body">Why LLM retrieval matters, how hallucinations happen, and how grounded context solves accuracy issues.</div>
+        </div>
+        <div class="curr-card">
+          <div class="curr-num">MODULE 02</div>
+          <div class="curr-title">Semantic Vector Embeddings</div>
+          <div class="curr-body">How text turns into vectors and how computers measure mathematical similarity between ideas.</div>
+        </div>
+        <div class="curr-card">
+          <div class="curr-num">MODULE 03</div>
+          <div class="curr-title">Sentence Transformers</div>
+          <div class="curr-body">Selecting and deploying open-source embedding models within lightweight Python scripts.</div>
+        </div>
+        <div class="curr-card">
+          <div class="curr-num">MODULE 04</div>
+          <div class="curr-title">Tokenization &amp; Context Limits</div>
+          <div class="curr-body">Understanding context windows, token limits, and cost optimization across model providers.</div>
+        </div>
+        <div class="curr-card">
+          <div class="curr-num">MODULE 05</div>
+          <div class="curr-title">Python Document Extraction</div>
+          <div class="curr-body">Parsing structured financial tables, reports, and PDFs using robust Python libraries.</div>
+        </div>
+        <div class="curr-card">
+          <div class="curr-num">MODULE 06</div>
+          <div class="curr-title">LLM APIs: Gemini &amp; Groq</div>
+          <div class="curr-body">Interfacing with lightning-fast inference engines and formatting system instructions effectively.</div>
+        </div>
+        <div class="curr-card">
+          <div class="curr-num">MODULE 07</div>
+          <div class="curr-title">Interactive Streamlit Dashboard</div>
+          <div class="curr-body">Transforming headless Python scripts into polished web applications that colleagues can use.</div>
+        </div>
+        <div class="curr-card">
+          <div class="curr-num">MODULE 08</div>
+          <div class="curr-title">End-to-End System Integration</div>
+          <div class="curr-body">Connecting ingestion, retrieval, prompt assembly, and user interaction into one unified app.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">&bull; The Technology Stack</span>
+      <h2 class="sec-title">Modern GenAI tooling explained</h2>
+      <p class="sec-sub">The practical toolset you will encounter during the workshop:</p>
+
+      <div class="stack-grid">
+        <div class="stack-card">
+          <div class="stack-category">Core Language</div>
+          <div class="stack-item">
+            <div class="stack-badge">Py</div>
+            <div>
+              <div class="stack-name">Python 3.10+</div>
+              <div class="stack-role">Pipeline orchestration &amp; data logic</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-category">Document Ingestion</div>
+          <div class="stack-item">
+            <div class="stack-badge">PDF</div>
+            <div>
+              <div class="stack-name">PyPDF / pdfplumber</div>
+              <div class="stack-role">Text &amp; table extraction</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-category">Vector Model</div>
+          <div class="stack-item">
+            <div class="stack-badge">ST</div>
+            <div>
+              <div class="stack-name">Sentence Transformers</div>
+              <div class="stack-role">Local vector embedding generation</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-category">Inference &amp; LLMs</div>
+          <div class="stack-item">
+            <div class="stack-badge">API</div>
+            <div>
+              <div class="stack-name">Gemini &amp; Groq</div>
+              <div class="stack-role">Ultra-low latency reasoning engines</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-category">Frontend Framework</div>
+          <div class="stack-item">
+            <div class="stack-badge">St</div>
+            <div>
+              <div class="stack-name">Streamlit</div>
+              <div class="stack-role">Rapid web deployment for Python</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card">
+          <div class="stack-category">Core Concept</div>
+          <div class="stack-item">
+            <div class="stack-badge">RAG</div>
+            <div>
+              <div class="stack-name">Hybrid Retrieval</div>
+              <div class="stack-role">Private knowledge integration</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA BREAKDOWN -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="eyebrow">&bull; Schedule</span>
+      <h2 class="sec-title">Two-hour minute-by-minute breakdown</h2>
+      
+      <div class="agenda-layout">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="tl-time">07:00 PM</div>
+            <div class="tl-rail"><div class="tl-point"></div><div class="tl-track"></div></div>
+            <div class="tl-info">
+              <div class="tl-heading">Foundations &amp; System Overview</div>
+              <div class="tl-desc">Demystifying GenAI architecture. Why typical tutorials fail and how production systems are structured.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="tl-time">07:15 PM</div>
+            <div class="tl-rail"><div class="tl-point"></div><div class="tl-track"></div></div>
+            <div class="tl-info">
+              <div class="tl-heading">Document Parsing &amp; Tokenization</div>
+              <div class="tl-desc">Extracting clean textual context from messy documents and dividing content into optimal token chunks.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="tl-time">07:40 PM</div>
+            <div class="tl-rail"><div class="tl-point"></div><div class="tl-track"></div></div>
+            <div class="tl-info">
+              <div class="tl-heading">Vector Embeddings &amp; Semantic Search</div>
+              <div class="tl-desc">Generating vector embeddings and executing cosine similarity queries to retrieve exact document snippets.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="tl-time">08:05 PM</div>
+            <div class="tl-rail"><div class="tl-point"></div><div class="tl-track"></div></div>
+            <div class="tl-info">
+              <div class="tl-heading">Live Hands-on Build Along</div>
+              <div class="tl-desc">Open your code editor. Connect the retrieval mechanism to Groq / Gemini APIs to synthesize accurate responses.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="tl-time">08:35 PM</div>
+            <div class="tl-rail"><div class="tl-point"></div><div class="tl-track"></div></div>
+            <div class="tl-info">
+              <div class="tl-heading">Streamlit Packaging &amp; Live Q&amp;A</div>
+              <div class="tl-desc">Deploy the working application on Streamlit. Direct question-and-answer session with Akash and Nikhil.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="agenda-sidebar">
+          <div class="aside-box">
+            <h4>What to have ready</h4>
+            <div class="aside-row"><span class="aside-bullet">&bull;</span><span>Laptop or desktop (Windows, Mac, or Linux)</span></div>
+            <div class="aside-row"><span class="aside-bullet">&bull;</span><span>Google Meet link ready</span></div>
+            <div class="aside-row"><span class="aside-bullet">&bull;</span><span>Free Gemini or Groq API key (we will guide setup)</span></div>
+            <div class="aside-row"><span class="aside-bullet">&bull;</span><span>Headphones for clear audio</span></div>
+          </div>
+
+          <div class="aside-box">
+            <h4>Prerequisites</h4>
+            <div class="aside-row"><span class="aside-bullet">&bull;</span><span>Basic Python familiarity is helpful</span></div>
+            <div class="aside-row"><span class="aside-bullet">&bull;</span><span>No prior AI or machine learning research needed</span></div>
+            <div class="aside-row"><span class="aside-bullet">&bull;</span><span>All code and templates are provided</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTRUCTORS -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">&bull; Instructors</span>
+      <h2 class="sec-title">Learn from real-world practitioners</h2>
+      <p class="sec-sub">Professionals who work with production analytics and engineering systems every day.</p>
+
+      <div class="instructors-grid">
+        <!-- Akash Mohan -->
+        <div class="inst-card">
+          <div class="inst-avatar-box">AM</div>
+          <div>
+            <div class="inst-name">Akash Mohan</div>
+            <div class="inst-title">Data Analyst at Pace Stock Broking Pvt Ltd</div>
+            <div class="inst-bio">
+              Specialized in quantitative financial analysis, market intelligence pipelines, and data modeling. 
+              Actively applies GenAI, automated prompt workflows, and Python to streamline complex market reporting and analytical decision-making.
+            </div>
+            <div class="inst-tags">
+              <span class="inst-tag">Pace Stock Broking</span>
+              <span class="inst-tag">Quantitative Analytics</span>
+              <span class="inst-tag">GenAI Workflows</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nikhil Mishra -->
+        <div class="inst-card">
+          <div class="inst-avatar-box">NM</div>
+          <div>
+            <div class="inst-name">Nikhil Mishra</div>
+            <div class="inst-title">GenAI Specialist &bull; Ex-InfoEdge</div>
+            <div class="inst-bio">
+              Former Engineer at InfoEdge with extensive experience in data analytics growth, production LLM systems, 
+              and prompt pipelines. Mentored over 2,500 learners across analytics and software domains with a strong focus on real implementation.
+            </div>
+            <div class="inst-tags">
+              <span class="inst-tag">Ex-InfoEdge</span>
+              <span class="inst-tag">Production GenAI</span>
+              <span class="inst-tag">2,500+ Mentored</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="eyebrow">&bull; Common Questions</span>
+      <h2 class="sec-title">Frequently asked questions</h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">
+            <span>When does the session begin?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">
+            The session takes place TODAY, Saturday September 19 from 7:00 PM to 9:00 PM IST on Google Meet. Please join 5 minutes early.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <span>How do I join the Google Meet call?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">
+            As soon as you enter your details, the Google Meet link will appear right on your screen. You can join directly using that link.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <span>Do I need advanced machine learning background?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">
+            No. This workshop focuses on applied architecture and API integration. If you know basic Python variables and syntax, you will follow along easily.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <span>Will I get the complete code files?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">
+            Yes. All registered attendees receive the complete Python repository, architecture diagrams, and prompt templates.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 GenAI Master Class &bull; Hosted by Akash Mohan (Pace Stock Broking) &amp; Nikhil Mishra (Ex-InfoEdge) &bull; All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- CONFIRMATION / GOOGLE MEET SUCCESS MODAL -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+      <div class="modal-kicker">Reservation Confirmed</div>
+      <h3 class="modal-title">You are in!</h3>
+      <p class="modal-desc" id="modalAttendeeText">
+        Your seat for today's live GenAI Master Class has been confirmed.
+      </p>
+
+      <div class="modal-meta-box">
+        <div class="modal-meta-row"><span>Date</span><strong>TODAY &bull; Saturday, Sep 19</strong></div>
+        <div class="modal-meta-row"><span>Time</span><strong>7:00 PM &ndash; 9:00 PM IST</strong></div>
+        <div class="modal-meta-row"><span>Platform</span><strong>Google Meet</strong></div>
+        <div class="modal-meta-row"><span>Instructors</span><strong>Akash Mohan &amp; Nikhil Mishra</strong></div>
+      </div>
+
+      <a href="https://meet.google.com/xae-ejfw-ybm" target="_blank" class="meet-btn">
+        Join Google Meet Call &rarr;
+      </a>
+
+      <a href="https://chat.whatsapp.com/" target="_blank" class="whatsapp-btn">
+        Join Attendees WhatsApp Group &rarr;
+      </a>
+      <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 8px; font-family: var(--font-mono);">
+        Meet Link: https://meet.google.com/xae-ejfw-ybm
+      </p>
+
+      <button class="modal-close-btn" onclick="document.getElementById('successModal').classList.remove('active')">
+        Close Window
+      </button>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    // --- LIVE COUNTDOWN TIMER TO TODAY 7:00 PM IST ---
+    // Target: 19 September 2026 at 19:00:00 IST
+    const targetDate = new Date();
+    targetDate.setHours(19, 0, 0, 0);
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate.getTime() - now;
+
+      if (diff > 0) {
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+        document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+      } else {
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent = '00';
+        document.getElementById('cd-secs').textContent = '00';
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // --- SEATS COUNTER ---
+    let remainingSeats = 184;
+    setInterval(() => {
+      if (remainingSeats > 140 && Math.random() > 0.65) {
+        remainingSeats -= Math.floor(Math.random() * 2) + 1;
+        const el = document.getElementById('live-seats');
+        if (el) el.textContent = remainingSeats;
+      }
+    }, 12000);
+
+    // --- FAQ ACCORDION ---
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // --- REGISTRATION FORM SUBMISSION ---
+    const SERVER_URL = window.location.origin;
+
+    document.getElementById('rsvp-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const name = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('emailAddr').value.trim();
+      const phone = document.getElementById('phoneNum').value.trim();
+      const btn = document.getElementById('submit-btn');
+
+      if (!name || !email) {
+        alert('Please enter your name and email.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Securing spot...';
+
+      try {
+        const res = await fetch(`${SERVER_URL}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, phone })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Registration failed');
+
+        document.getElementById('modalAttendeeText').innerHTML = 
+          `Welcome aboard, <strong>${name}</strong>. Your seat is confirmed for today at 7:00 PM IST on Google Meet.`;
+
+        document.getElementById('successModal').classList.add('active');
+        document.getElementById('rsvp-form').reset();
+        btn.disabled = false;
+        btn.textContent = 'Seat Confirmed';
+
+      } catch (err) {
+        console.error('Registration error:', err);
+        alert('Notice: ' + err.message);
+        btn.disabled = false;
+        btn.textContent = 'Get Google Meet Link →';
+      }
+    });
+  </script>
+</body>
+</html>
